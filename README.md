@@ -8,4 +8,4 @@ The static folder will contain the files that always stay the same, i.e. styling
 
 The templates folder contains html templates for each page on the site. These templates are dynamic depending on the information received from the api.
 
-routes.py is the front-end flask app contains the routes and functions to get information from the api and render it into into the html templates.
+routes.py is the front-end flask app that contains the routes and functions to get information from the api and render it into into the html templates.
