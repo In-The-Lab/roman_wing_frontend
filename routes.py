@@ -1,34 +1,34 @@
-from flask import Flask, requests, render_template
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template(index.html)
+    return render_template('index.html')
 
-@app.route("/articles_main")
+@app.route("/articles")
 def articles_main():
-    return render_template(articles_main.html)
+    return render_template('articles/articles_main.html')
 
-@app.route("/articles/<int:article_id>")
-def articles():
-    return render_template(articles.html)
+@app.route("/articles/<article_name>")
+def articles(article_name):
+    return render_template('articles/articles.html', article=article_name)
 
-@app.route("/events_main")
+@app.route("/events")
 def events_main():
-    return render_template(events_main.html)
+    return render_template('events/events_main.html')
 
-@app.route("/events/<int:event_id>")
-def events():
-    return render_template(events.html)
+@app.route("/events/<event_name>")
+def events(event_name):
+    return render_template('events/events.html', event=event_name)
 
 @app.route("/profile/<profile_name>")
-def profile():
-    return render_template(profiles.html)
+def profile(profile_name):
+    return render_template('profiles.html', profile=profile_name)
 
 @app.route("/submit")
 def submit():
-    return render_template(submit.html)
+    return render_template('submit.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
