@@ -103,6 +103,19 @@ class PostDAO:
         cursor.execute(cmd)
         cnx.commit()
 
+    def get_post(id_):
+        cnx, cursor = get_db_connection(*get_db_config())
+        cmd = (
+            "SELECT id, creator_id, body, date_created, thumbnail_url "
+            "FROM posts WHERE id={}".format(id_))
+        cursor.execute(cmd)
+        posts = []
+        for (id_, creator_id, body, date_created, thumbnail_url) in cursor:
+            post = Post(id__, creator_id, body, date_created, thumbnail_url)
+            posts.append(post)
+        return posts[0]
+
+
         @staticmethod
     def get_all_posts():
         cnx, cursor = get_db_connection(*get_db_config())
@@ -129,11 +142,24 @@ class EventDAO:
         cnx.commit()
 
     @staticmethod
+    def get_event(id_):
+        cnx, cursor = get_db_connection(*get_db_config())
+        cmd = (
+            "SELECT id, event_name, event_description, date, location "
+            "FROM events WHERE id={}".format(id_))
+        cursor.execute(cmd)
+        for (id_, event_name, event_description, date, location) in cursor:
+            event = Event(id_, event_name, event_description, date, location)
+            events.append(event)
+        return events[0]
+
+    @staticmethod
     def get_all_future_events():
         cnx, cursor = get_db_connection(*get_db_config())
         cmd  = (
             "SELECT id, event_name, event_description, date, location "
             "FROM events WHERE date>CURDATE()")
+        cursor.execute(cmd)
         events = []
         for (id_, event_name, event_description, date, location) in cursor:
             event = Event(id_, event_name, event_description, date, location)
