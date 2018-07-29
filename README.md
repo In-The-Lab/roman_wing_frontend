@@ -33,3 +33,9 @@ The static folder will contain the files that always stay the same, i.e. styling
 The templates folder contains html templates for each page on the site. These templates are dynamic depending on the information received from the api. layout.html contains that base html that extends to all other pages. The includes folder contains elements that have enough complexity for their own file.
 
 routes.py is the front-end flask app that contains the routes and functions to get information from the api and render it into into the html templates.
+
+## Running the server
+
+Type `chmod +x start.sh` to enable running the start.sh file
+
+Whenever you want to run the server, type `./start.sh`
