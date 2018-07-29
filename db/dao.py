@@ -103,6 +103,7 @@ class PostDAO:
         cursor.execute(cmd)
         cnx.commit()
 
+    @staticmethod
     def get_post(id_):
         cnx, cursor = get_db_connection(*get_db_config())
         cmd = (
@@ -115,8 +116,7 @@ class PostDAO:
             posts.append(post)
         return posts[0]
 
-
-        @staticmethod
+    @staticmethod
     def get_all_posts():
         cnx, cursor = get_db_connection(*get_db_config())
         cmd = (

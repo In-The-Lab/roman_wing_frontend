@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template
-from db.dao import UserDAO, PostDAO, EventDAO
+from db.dao import UserDAO, PostDAO, EventDAO, AuthDAO
+import bcrypt
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
 @app.route("/")
 def index():
@@ -40,5 +41,4 @@ def profile(profile_id):
 def submit():
     return render_template('submit.html')
 
-if __name__ == "__main__":
-    app.run(debug=True)
+app.run(debug=True)
