@@ -6,6 +6,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route("/log-in")
+def login():
+    return render_template('login.html')
+
 @app.route("/articles")
 def articles_main():
     return render_template('articles/articles_main.html')
