@@ -112,7 +112,7 @@ def logout():
 @app.route("/submit", methods=["GET", "POST"])
 def submit():
     if request.method == "GET":
-        return render_template('submit.html')
+        return render_template('submit.html', current_user=get_current_user())
     elif request.method == "POST":
         user = get_current_user()
         if current_user is None:
