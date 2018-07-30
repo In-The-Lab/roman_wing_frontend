@@ -25,6 +25,24 @@ def index():
     except:
         return render_template('index.html', current_user=None)
 
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "GET":
+        return render_template("signup.html")
+    elif request.method == "POST":
+        first_name = request.method["first_name"]
+        last_name = request.method["last_name"]
+        email = request.method["email"]
+        p1 = request.method["password"]
+        p2 = request.methof["confirm_password"]
+        if p1 != p2:
+            err = "Passwords don't match."
+            return render_template("signup.html", err=err)
+        hash = bcrypt.hashpw(p1.encode("utf-8"), bcrypt.gensalt())
+        UserDAO.insert_user(first_name, last_name, email)
+        id = UserDAO.get_user_by_email(email)
+        return redirect("/profiles/{}".format(id))
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
