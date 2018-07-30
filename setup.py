@@ -11,6 +11,7 @@ setup(name="roman_wing_API",
           "configparser",
           "pytz",
           "bcrypt",
+          "flask-socketio"
           "PyJWT"
       ]
 )

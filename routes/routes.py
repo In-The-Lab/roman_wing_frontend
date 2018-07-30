@@ -1,6 +1,7 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, session
 from flask_login import LoginManager, logout_user, current_user
 from flask_login import login_user, login_required
+from flask_socketio import SocketIO, emit
 from db.dao import UserDAO, PostDAO, EventDAO, AuthDAO
 import configparser
 import bcrypt
@@ -12,6 +13,8 @@ app.secret_key = config["APP"]["secret"].encode("utf-8")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+socketio = SocketIO(app)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -30,18 +33,20 @@ def signup():
     if request.method == "GET":
         return render_template("signup.html")
     elif request.method == "POST":
-        first_name = request.method["first_name"]
-        last_name = request.method["last_name"]
-        email = request.method["email"]
-        p1 = request.method["password"]
-        p2 = request.methof["confirm_password"]
+        first_name = request.form["first_name"]
+        last_name = request.form["last_name"]
+        email = request.form["email"]
+        p1 = request.form["password"]
+        p2 = request.form["confirm_password"]
         if p1 != p2:
             err = "Passwords don't match."
             return render_template("signup.html", err=err)
         hash = bcrypt.hashpw(p1.encode("utf-8"), bcrypt.gensalt())
         UserDAO.insert_user(first_name, last_name, email)
-        id = UserDAO.get_user_by_email(email)
-        return redirect("/profiles/{}".format(id))
+        usr = UserDAO.get_user_by_email(email)
+        AuthDAO.insert_hash(usr.id, hash)
+        login_user(usr)
+        return redirect("/profile/{}".format(usr.id))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -79,23 +84,33 @@ def events(event_id):
     event = EventDAO.get_event(int(event_id))
     return render_template('events/events.html', event=event)
 
-@login_required
 @app.route("/profile/<profile_id>")
 def profile(profile_id):
     user = current_user
+    try:
+        id = current_user.id
+    except:
+        return redirect("/")
     if current_user.id != int(profile_id):
         return render_template('index.html',
                                error="You can only view your own profile")
     return render_template('profiles.html', profile=user)
 
-@login_required
 @app.route("/logout")
 def logout():
+    try:
+        id = current_user.id
+    except:
+        return render_template("index.html", current_user=None)
     logout_user()
     return redirect("/")
 
 @app.route("/submit")
 def submit():
     return render_template('submit.html')
+
+@socketio.on('disconnect')
+def disconnect_user():
+    logout_user()
 
 app.run(debug=True)
