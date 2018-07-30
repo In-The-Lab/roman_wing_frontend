@@ -1,0 +1,28 @@
+body {
+  background-color: white;
+}
+
+.sidenav {
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  position: fixed;
+  border-right: solid 3px grey;
+}
+
+.sidenav_container {
+  margin: 0;
+  padding: 0;
+}
+
+.sidenav_item {
+  list-style-type: none;
+  margin: 0;
+}
+
+.sidenav_icon {
+  width: 100px;
+  height: auto;
+  color: black;
+}

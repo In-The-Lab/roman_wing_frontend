@@ -1,11 +1,13 @@
-<ul>
-  <li><a href="/">Main</a></li>
-  <li><a href="/articles">Articles</a></li>
-  <li><a href="/events">Events</a></li>
-  <li><a href="/submit">Submit</a></li>
-  {% if current_user %}
-    <li><a href="/profile/{{ current_user.id }}">Profile</a></li>
-  {% else %}
-    <li><a href="/login">Log in</a></li>
-  {% endif %}
-</ul>
+<nav class="sidenav">
+  <ul class="sidenav_container">
+    <li class="sidenav_item"><a href="/">Main</a></li>
+    <li class="sidenav_item"><a href="/articles"><img class="sidenav_icon" href="{{ url_for('static', filename='assets/articles.png') }}"></a></li>
+    <li class="sidenav_item"><a href="/events"><img class="sidenav_icon" href="{{ url_for('static', filename='assets/events.png') }}"></a></li>
+    <li class="sidenav_item"><a href="/submit"><img class="sidenav_icon" href="{{ url_for('static', filename='assets/submit.png') }}"></a></li>
+    {% if current_user %}
+      <li class="sidenav_item"><a href="/profile/{{ current_user.id }}"><img class="sidenav_icon" href="{{ url_for('static', filename='assets/profile.png') }}"></a></li>
+    {% else %}
+      <li class="sidenav_item"><a href="/login"><img href="{{ url_for('static', filename='assets/login.png') }}"></a></li>
+    {% endif %}
+  </ul>
+</nav>
