@@ -1,4 +1,5 @@
 *.ini
+config/
 .env
 *.egg-info
 __pycache__/
