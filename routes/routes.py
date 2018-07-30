@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect
-from flask_login import LoginManager, logout_user, current_user, login_user, login_required
+from flask_login import LoginManager, logout_user, current_user
+from flask_login import login_user, login_required
 from db.dao import UserDAO, PostDAO, EventDAO, AuthDAO
 import configparser
 import bcrypt
