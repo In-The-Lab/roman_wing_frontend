@@ -24,6 +24,8 @@ user=root
 database=romanwing
 password=<YOUR_DATABASE_PASSWORD>
 host=127.0.0.1
+[APP]
+secret=<YOUR_APP_SECRET_KEY_HERE>
 ```
 
 ## Front-end info
