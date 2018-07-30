@@ -13,4 +13,7 @@
 
 {% block content %}
   <h1>Articles</h1>
+  {% for article in articles %}
+    <a href="/articles/{{ article.id }}"><h3>{{ article.title }}</h3></a>
+  {% endfor %}
 {% endblock %}

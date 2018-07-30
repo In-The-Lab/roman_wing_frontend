@@ -13,4 +13,11 @@
 
 {% block content %}
   <h1>Submit an article</h1>
+  <form action="/submit" method="POST">
+    <input type="text" name="title" placeholder="Title">
+    <input type="text" name="description" placeholder="Description">
+    <input type="text" name="thumbnail_url" placeholder="OPTIONAL: thumbnail url">
+    <textarea name="body">Enter article here...</textarea>
+    <input type="submit" value="Submit article for review!">
+  </form>
 {% endblock %}

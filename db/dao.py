@@ -100,12 +100,25 @@ class UserDAO:
 class PostDAO:
 
     @staticmethod
-    def insert_post(creator_id, body):
+    def insert_post(creator_id, title, desc, body, thumbnail_url):
         cnx, cursor = get_db_connection(*get_db_config())
         cmd = (
             "INSERT INTO posts "
-            "(creator_id, body, date_created) "
-            "VALUES ({}, \'{}\', CURDATE())",format(creator_id, body))
+            "(creator_id, title, description, body, date_created, "
+            "thumbnail_url, is_authorized) "
+            "VALUES ({}, \'{}\', \'{}\', \'{}\', CURDATE(), \'{}\', FALSE)"
+            .format(creator_id, title, desc, body, thumbnail_url))
+        cursor.execute(cmd)
+        cnx.commit()
+
+    @staticmethod
+    def authorize_post(id_):
+        cnx, cursor = get_db_connection(*get_db_config())
+        cmd = (
+            "UPDATE posts SET "
+            "is_authorized=TRUE "
+            "WHERE id={}".format(id_)
+        )
         cursor.execute(cmd)
         cnx.commit()
 
@@ -113,12 +126,15 @@ class PostDAO:
     def get_post(id_):
         cnx, cursor = get_db_connection(*get_db_config())
         cmd = (
-            "SELECT id, creator_id, body, date_created, thumbnail_url "
+            "SELECT id, creator_id, title, description, body, date_created, "
+            "thumbnail_url, is_authorized "
             "FROM posts WHERE id={}".format(id_))
         cursor.execute(cmd)
         posts = []
-        for (id_, creator_id, body, date_created, thumbnail_url) in cursor:
-            post = Post(id__, creator_id, body, date_created, thumbnail_url)
+        for (id__, creator_id, title, description,
+             body, date_created, thumbnail_url, is_authorized) in cursor:
+            post = Post(id__, creator_id, title, description,
+                        body, date_created, thumbnail_url, is_authorized)
             posts.append(post)
         return posts[0]
 
@@ -126,12 +142,15 @@ class PostDAO:
     def get_all_posts():
         cnx, cursor = get_db_connection(*get_db_config())
         cmd = (
-            "SELECT id, creator_id, body, date_created, thumbnail_url "
+            "SELECT id, creator_id, title, description, body, date_created, "
+            "thumbnail_url, is_authorized "
             "FROM posts")
         cursor.execute(cmd)
         posts = []
-        for (id_, creator_id, body, date_created, thumbnail_url) in cursor:
-            post = Post(id__, creator_id, body, date_created, thumbnail_url)
+        for (id_, creator_id, title, description,
+             body, date_created, thumbnail_url, is_authorized) in cursor:
+            post = Post(id_, creator_id, title, description,
+                        body, date_created, thumbnail_url, is_authorized)
             posts.append(post)
         return posts
 

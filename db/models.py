@@ -36,12 +36,16 @@ class User:
 
 class Post:
 
-    def __init__(self, id_, creator_id, body, date_created, thumbnail_url):
+    def __init__(self, id_, creator_id, title, desc, body, date_created,
+                 thumbnail_url, is_authorized):
         self.id = id_
         self.creator_id = creator_id
+        self.title = title
+        self.description = desc
         self.body = body
         self.date_created = date_created
         self.thumbnail_url = thumbnail_url
+        self.is_authorized = is_authorized
 
     def __str__(self):
         return self.body

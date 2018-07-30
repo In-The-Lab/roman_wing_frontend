@@ -23,10 +23,13 @@ tables["user_auth"] = (
 tables["posts"] = (
     "CREATE TABLE `posts` ("
     "`id` int NOT NULL AUTO_INCREMENT, "
+    "`title` VARCHAR(256) NOT NULL, "
+    "`description` VARCHAR(512) NOT NULL, "
     "`creator_id` int NOT NULL, "
     "`body` TEXT NOT NULL, "
     "`thumbnail_url` VARCHAR(256) NOT NULL, "
     "`date_created` DATETIME NOT NULL, "
+    "`is_authorized` BOOLEAN NOT NULL, "
     "FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`), "
     "PRIMARY KEY (`id`))"
 )

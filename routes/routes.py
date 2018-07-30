@@ -20,13 +20,16 @@ socketio = SocketIO(app)
 def load_user(user_id):
     return UserDAO.get_user(user_id)
 
+def get_current_user():
+    try:
+        id = current_user.id
+        return current_user
+    except:
+        return None
+
 @app.route("/")
 def index():
-    try:
-        curr_usr_id = current_user.id
-        return render_template('index.html', current_user=current_user)
-    except:
-        return render_template('index.html', current_user=None)
+    return render_template("index.html", current_user=get_current_user())
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -67,47 +70,59 @@ def login():
 @app.route("/articles")
 def articles_main():
     articles = PostDAO.get_all_posts()
-    return render_template('articles/articles_main.html', articles=articles)
+    return render_template('articles/articles_main.html', articles=articles,
+                           current_user=get_current_user())
 
 @app.route("/articles/<article_id>")
 def articles(article_id):
     article = PostDAO.get_post(int(article_id))
-    return render_template('articles/articles.html', article=article)
+    return render_template('articles/articles.html', article=article,
+                           current_user=get_current_user())
 
 @app.route("/events")
 def events_main():
     events = EventDAO.get_all_future_events()
-    return render_template('events/events_main.html', events=events)
+    return render_template('events/events_main.html', events=events,
+                           current_user=get_current_user())
 
 @app.route("/events/<event_id>")
 def events(event_id):
     event = EventDAO.get_event(int(event_id))
-    return render_template('events/events.html', event=event)
+    return render_template('events/events.html', event=event,
+                           current_user=get_current_user())
 
 @app.route("/profile/<profile_id>")
 def profile(profile_id):
-    user = current_user
-    try:
-        id = current_user.id
-    except:
-        return redirect("/")
+    user = get_current_user()
     if current_user.id != int(profile_id):
         return render_template('index.html',
-                               error="You can only view your own profile")
-    return render_template('profiles.html', profile=user)
+                               error="You can only view your own profile",
+                               current_user=get_current_user())
+    return render_template('profiles.html', profile=user,
+                           current_user=get_current_user())
 
 @app.route("/logout")
 def logout():
-    try:
-        id = current_user.id
-    except:
+    current_user = get_current_user()
+    if current_user is None:
         return render_template("index.html", current_user=None)
     logout_user()
     return redirect("/")
 
-@app.route("/submit")
+@app.route("/submit", methods=["GET", "POST"])
 def submit():
-    return render_template('submit.html')
+    if request.method == "GET":
+        return render_template('submit.html')
+    elif request.method == "POST":
+        user = get_current_user()
+        if current_user is None:
+            return render_template("index.html", current_user=None)
+        title = request.form["title"]
+        description = request.form["description"]
+        thumbnail_url = request.form["thumbnail_url"]
+        body = request.form["body"]
+        PostDAO.insert_post(user.id, title, description, body, thumbnail_url)
+        return redirect("/articles")
 
 @socketio.on('disconnect')
 def disconnect_user():
