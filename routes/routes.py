@@ -18,7 +18,7 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('index.html', current_user=current_user)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -69,7 +69,7 @@ def profile(profile_id):
 @app.route("/logout")
 def logout():
     logout_user()
-    redirect("/")
+    return redirect("/")
 
 @app.route("/submit")
 def submit():
