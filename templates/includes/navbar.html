@@ -3,7 +3,7 @@
   <li><a href="/articles">Articles</a></li>
   <li><a href="/events">Events</a></li>
   <li><a href="/submit">Submit</a></li>
-  {% if current_user not None %}
+  {% if current_user %}
     <li><a href="/profile/{{ current_user.id }}">Profile</a></li>
   {% else %}
     <li><a href="/login">Log in</a></li>

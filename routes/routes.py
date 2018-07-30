@@ -65,6 +65,10 @@ def profile(profile_id):
                                error="You can only view your own profile")
     return render_template('profiles.html', profile=user)
 
+@app.route("/profile/")
+def redirect_to_login():
+    return redirect("/login")
+
 @login_required
 @app.route("/logout")
 def logout():
