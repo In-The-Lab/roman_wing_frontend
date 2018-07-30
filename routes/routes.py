@@ -18,7 +18,11 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    return render_template('index.html', current_user=current_user)
+    try:
+        curr_usr_id = current_user.id
+        return render_template('index.html', current_user=current_user)
+    except:
+        return render_template('index.html', current_user=None)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -64,10 +68,6 @@ def profile(profile_id):
         return render_template('index.html',
                                error="You can only view your own profile")
     return render_template('profiles.html', profile=user)
-
-@app.route("/profile/")
-def redirect_to_login():
-    return redirect("/login")
 
 @login_required
 @app.route("/logout")
