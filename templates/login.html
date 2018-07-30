@@ -12,4 +12,12 @@
 
 {% block content %}
   <h1>Log-In</h1>
+  {% if error %}
+    {{ error }}
+  {% endif %}
+  <form action="/login" method="POST">
+    <input type="text" name="email">
+    <input type="text" name="password">
+    <input type="submit">
+  </form>
 {% endblock %}

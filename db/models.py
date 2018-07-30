@@ -10,6 +10,19 @@ class User:
         self.email = email
         self.is_admin = is_admin
         self.date_created = date_created
+        self.is_active = True
+        self.is_anonymous = False
+        self.is_authenticated = False
+
+    def get_id(self):
+        return self.id
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
     def __str__(self):
         return (
             "{} {}:\n"

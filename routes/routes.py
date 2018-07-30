@@ -1,16 +1,40 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
+from flask_login import LoginManager, logout_user, current_user, login_user, login_required
 from db.dao import UserDAO, PostDAO, EventDAO, AuthDAO
+import configparser
 import bcrypt
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
+config = configparser.ConfigParser()
+config.read("../config/config.ini")
+app.secret_key = config["APP"]["secret"].encode("utf-8")
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return UserDAO.get_user(user_id)
 
 @app.route("/")
 def index():
     return render_template('index.html')
 
-@app.route("/log-in")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template('login.html')
+    if request.method == "GET":
+        return render_template('login.html')
+    elif request.method == "POST":
+        email = request.form["email"]
+        usr = UserDAO.get_user_by_email(email)
+        if usr is None:
+            return render_template('login.html', error="No such user exists")
+        password = request.form["password"]
+        if bcrypt.checkpw(password.encode("utf-8"), AuthDAO.get_hash(usr.id)):
+            login_user(usr)
+            return redirect("/profile/{}".format(usr.id))
+        else:
+            return render_template('login.html', error="Incorrect password")
 
 @app.route("/articles")
 def articles_main():
@@ -32,10 +56,20 @@ def events(event_id):
     event = EventDAO.get_event(int(event_id))
     return render_template('events/events.html', event=event)
 
+@login_required
 @app.route("/profile/<profile_id>")
 def profile(profile_id):
-    user = UserDAO.get_user(int(profile_id))
+    user = current_user
+    if current_user.id != int(profile_id):
+        return render_template('index.html',
+                               error="You can only view your own profile")
     return render_template('profiles.html', profile=user)
+
+@login_required
+@app.route("/logout")
+def logout():
+    logout_user()
+    redirect("/")
 
 @app.route("/submit")
 def submit():

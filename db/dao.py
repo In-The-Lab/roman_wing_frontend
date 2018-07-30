@@ -1,5 +1,11 @@
-from .dbutils import get_db_config, get_db_connection
-from .models import User, Post, Event
+try:
+    from .dbutils import get_db_config, get_db_connection
+except:
+    from dbutils import get_db_config, get_db_connection
+try:
+    from .models import User, Post, Event
+except:
+    from models import User, Post, Event
 
 class UserDAO:
 

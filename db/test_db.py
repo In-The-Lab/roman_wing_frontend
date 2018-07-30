@@ -1,20 +1,15 @@
 from mysql.connector import connection, Error
+import bcrypt
+from models import User
+from dao import UserDAO, AuthDAO
 import configparser
 
-config = configparser.ConfigParser()
-print("Loading config.ini...")
-try:
-    config.read("config.ini")
-except:
-    print("config.ini not found.")
-    exit()
+usrs = [
+    (("Will", "Cravitz", "wcravitz@lsoc.org"), ("pass")),
+    (("Vedant", "Pathak", "vpathak@lsoc.org"), ("pass")),
+]
 
-print("Connecting to database...")
-try:
-    cnx = connection.MySQLConnection(user=config["MYSQL"]["user"],
-                                     password=config["MYSQL"]["password"],
-                                     host=config["MYSQL"]["host"],
-                                     database=config["MYSQL"]["database"])
-    print("All connected!")
-except Error as err:
-    print(err)
+for usr, pass_ in usrs:
+    UserDAO.insert_user(usr[0], usr[1], usr[2])
+    id = UserDAO.get_user_by_email(usr[2])
+    AuthDAO.insert_hash(bcrypt.hashpw(id, pass_.encode("utf-8")))
