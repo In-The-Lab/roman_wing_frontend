@@ -1,25 +1,32 @@
 <nav class="sidenav">
   <ul class="sidenav_container">
-    <li class="sidenav_item" id="main_link">
-      <a href="/">Main</a>
-    </li>
-    <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/articles.png') }});">
-      <a href="/articles"></a>
-    </li>
-    <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/events.png') }});">
-      <a href="/events"></a>
-    </li>
-    <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/submit.png') }});">
-      <a href="/submit"></a>
-    </li>
-    {% if current_user %}
-      <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/profile.png') }});">
-        <a href="/profile/{{ current_user.id }}">  </a>
+    <a href="/">
+      <li class="sidenav_item" id="main_link">
+        Main
       </li>
-    {% else %}
+    </a>
+    <a href="/articles">
+      <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/articles.png') }});">
+      </li>
+    </a>
+    <a href="/events">
+      <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/events.png') }});">
+      </li>
+    </a>
+    <a href="/submit">
       <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/submit.png') }});">
-        <a href="/login"></a>
       </li>
+    </a>
+    {% if current_user %}
+      <a href="/profile/{{ current_user.id }}">
+        <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/profile.png') }});">
+        </li>
+      </a>
+    {% else %}
+      <a href="/login">
+        <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/submit.png') }});">
+        </li>
+      </a>
     {% endif %}
   </ul>
 </nav>
