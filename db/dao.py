@@ -154,6 +154,45 @@ class PostDAO:
             posts.append(post)
         return posts
 
+    @staticmethod
+    def get_unapproved_posts():
+        cnx, cursor = get_db_connection(*get_db_config())
+        cmd = (
+            "SELECT id, creator_id, title, description, body, date_created, "
+            "thumbnail_url, is_authorized "
+            "FROM posts WHERE is_authorized=FALSE")
+        cursor.execute(cmd)
+        posts = []
+        for (id_, creator_id, title, description,
+             body, date_created, thumbnail_url, is_authorized) in cursor:
+            post = Post(id_, creator_id, title, description,
+                        body, date_created, thumbnail_url, is_authorized)
+            posts.append(post)
+        return posts
+
+    @staticmethod
+    def get_approved_posts():
+        cnx, cursor = get_db_connection(*get_db_config())
+        cmd = (
+            "SELECT id, creator_id, title, description, body, date_created, "
+            "thumbnail_url, is_authorized "
+            "FROM posts WHERE is_authorized=TRUE")
+        cursor.execute(cmd)
+        posts = []
+        for (id_, creator_id, title, description,
+             body, date_created, thumbnail_url, is_authorized) in cursor:
+            post = Post(id_, creator_id, title, description,
+                        body, date_created, thumbnail_url, is_authorized)
+            posts.append(post)
+        return posts
+
+    @staticmethod
+    def delete_post(id_):
+        cnx, cursor = get_db_connection(*get_db_config())
+        cmd = "DELETE FROM posts WHERE id={}".format(id_)
+        cursor.execute(cmd)
+        cnx.commit()
+
 class EventDAO:
 
     @staticmethod
