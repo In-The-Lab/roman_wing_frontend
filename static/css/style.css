@@ -18,19 +18,8 @@ body {
 
 .sidenav_item {
   list-style-type: none;
-  margin: 0;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   background-size: cover;
-}
-
-.sidenav_icon {
-  width: 100px;
-  height: auto;
-  color: black;
-}
-
-img {
-    max-width: 100%;
-    max-height: 100%;
+  margin-bottom: 20px;
 }
