@@ -130,7 +130,9 @@ def check_submissions():
     if user is None:
         return redirect("/login")
     if not user.is_admin:
-        return render_template("/", error="You must be an admin to review submissions.")
+        return render_template("index.html",
+                               current_user=user
+                               error="You must be an admin to review submissions.")
     submissions = PostDAO.get_unapproved_posts()
     return render_template("submissions_box.html", submissions=submissions)
 
@@ -140,7 +142,9 @@ def review_submission(post_id):
     if user is None:
         return redirect("/login")
     if not user.is_admin:
-        return render_template("/", error="You must be an admin to review submissions.")
+        return render_template("index.html",
+                               current_user=user
+                               error="You must be an admin to review submissions.")
     post_id = int(post_id)
     submission = PostDAO.get_post(post_id)
     return render_template("submission.html", submission=submission)
@@ -152,7 +156,9 @@ def approve_submission(post_id):
         if user is None:
             return redirect("/login")
         if not user.is_admin:
-            return render_template("/", error="You must be an admin to review submissions.")
+            return render_template("index.html",
+                                   current_user=user
+                                   error="You must be an admin to review submissions.")
         post_id = int(post_id)
         updated_text = request.form["body"].replace("\'", "\\'").replace('\"', '\\"')
         print(request.form["result"])
@@ -164,8 +170,29 @@ def approve_submission(post_id):
             PostDAO.delete_post(post_id)
             return redirect("/submissions_box")
 
+@app.route("/create_event", methods=["GET", "POST"]):
+def create_event():
+    user = get_current_user()
+    if user is None:
+        return redirect("/login")
+    if not user.is_admin:
+        return render_template("index.html",
+                               current_user=user
+                               error="You must be an admin to create events.")
+    if request.method == "GET":
+        return render_template("create_event.html")
+    elif request.method == "POST":
+        name = request.form["name"]
+        desc = request.form["description"]
+        date = request.form["date"]
+        location = request.form["location"]
+        EventDAO.create_event(name, desc, date, location)
+        return redirect("/events")
+
+
 @socketio.on('disconnect')
 def disconnect_user():
     logout_user()
 
 app.run(debug=True)
+#TODO: fucking refactor this dirty-ass code

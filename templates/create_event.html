@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block css %}
+{% endblock %}
+
+{% block title %}
+  Roman Wing
+{% endblock %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block navbar %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <form action="/create_event" method="POST">
+    <input type="text" name="name" placeholder="Event Name">
+    <input type="date" name="date" placeholder="Event Date">
+    <input type="text" name="description" placeholder="Event Description">
+    <input type="submit" value="Create Event">
+  </form>
+{% endblock %}
