@@ -154,7 +154,7 @@ def approve_submission(post_id):
         if not user.is_admin:
             return render_template("/", error="You must be an admin to review submissions.")
         post_id = int(post_id)
-        updated_text = request.form["body"]
+        updated_text = request.form["body"].replace("\'", "\\'").replace('\"', '\\"')
         print(request.form["result"])
         if request.form["result"] == "approve":
             PostDAO.update_post_text(post_id, updated_text)
