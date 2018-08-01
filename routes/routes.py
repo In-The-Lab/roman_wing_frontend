@@ -131,7 +131,7 @@ def check_submissions():
         return redirect("/login")
     if not user.is_admin:
         return render_template("index.html",
-                               current_user=user
+                               current_user=user,
                                error="You must be an admin to review submissions.")
     submissions = PostDAO.get_unapproved_posts()
     return render_template("submissions_box.html", submissions=submissions)
@@ -143,7 +143,7 @@ def review_submission(post_id):
         return redirect("/login")
     if not user.is_admin:
         return render_template("index.html",
-                               current_user=user
+                               current_user=user,
                                error="You must be an admin to review submissions.")
     post_id = int(post_id)
     submission = PostDAO.get_post(post_id)
@@ -157,7 +157,7 @@ def approve_submission(post_id):
             return redirect("/login")
         if not user.is_admin:
             return render_template("index.html",
-                                   current_user=user
+                                   current_user=user,
                                    error="You must be an admin to review submissions.")
         post_id = int(post_id)
         updated_text = request.form["body"].replace("\'", "\\'").replace('\"', '\\"')
@@ -177,7 +177,7 @@ def create_event():
         return redirect("/login")
     if not user.is_admin:
         return render_template("index.html",
-                               current_user=user
+                               current_user=user,
                                error="You must be an admin to create events.")
     if request.method == "GET":
         return render_template("create_event.html")
