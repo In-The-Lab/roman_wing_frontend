@@ -170,7 +170,7 @@ def approve_submission(post_id):
             PostDAO.delete_post(post_id)
             return redirect("/submissions_box")
 
-@app.route("/create_event", methods=["GET", "POST"]):
+@app.route("/create_event", methods=["GET", "POST"])
 def create_event():
     user = get_current_user()
     if user is None:
