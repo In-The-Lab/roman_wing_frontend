@@ -12,10 +12,7 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ profile.first_name + " " + profile.last_name }}</h1>
-
-  {% if profile.is_admin == true %}
-    <a href="/submissions_box">Check submissions</a>
-  {% endif %}
-
+  {% for submission in submissions %}
+    <a href="/submission/{{ submission.id }}">{{ submission.title }}</a>
+  {% endfor %}
 {% endblock %}

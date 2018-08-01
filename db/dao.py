@@ -193,6 +193,15 @@ class PostDAO:
         cursor.execute(cmd)
         cnx.commit()
 
+    @staticmethod
+    def update_post_text(id_, updated_text):
+        cnx, cursor = get_db_connection(*get_db_config())
+        cmd = (
+            "UPDATE posts SET body=\'{}\' WHERE id={}".format(updated_text, id_)
+        )
+        cursor.execute(cmd)
+        cnx.commit()
+
 class EventDAO:
 
     @staticmethod

@@ -69,7 +69,7 @@ def login():
 
 @app.route("/articles")
 def articles_main():
-    articles = PostDAO.get_all_posts()
+    articles = PostDAO.get_approved_posts()
     return render_template('articles/articles_main.html', articles=articles,
                            current_user=get_current_user())
 
@@ -136,32 +136,33 @@ def check_submissions():
 
 @app.route("/submission/<post_id>")
 def review_submission(post_id):
+    user = get_current_user()
     if user is None:
         return redirect("/login")
     if not user.is_admin:
         return render_template("/", error="You must be an admin to review submissions.")
     post_id = int(post_id)
     submission = PostDAO.get_post(post_id)
-    return render_template("review_submission.html", submission=submission)
+    return render_template("submission.html", submission=submission)
 
-@app.route("/submissions/<post_id>/approve")
-def approve_submission():
-    if user is None:
-        return redirect("/login")
-    if not user.is_admin:
-        return render_template("/", error="You must be an admin to review submissions.")
-    post_id = int(post_id)
-    PostDAO.authorize_post(post_id)
-    return redirect("/submissions_box")
-
-@app.route("/submissions/<post_id>/deny")
-    if user is None:
-        return redirect("/login")
-    if not user.is_admin:
-        return render_template("/", error="You must be an admin to review submissions.")
-    post_id = int(post_id)
-    PostDAO.delete_post(post_id)
-    return redirect("/submissions_box")
+@app.route("/submissions/<post_id>/review", methods=["GET", "POST"])
+def approve_submission(post_id):
+    if request.method == "POST":
+        user = get_current_user()
+        if user is None:
+            return redirect("/login")
+        if not user.is_admin:
+            return render_template("/", error="You must be an admin to review submissions.")
+        post_id = int(post_id)
+        updated_text = request.form["body"]
+        print(request.form["result"])
+        if request.form["result"] == "approve":
+            PostDAO.update_post_text(post_id, updated_text)
+            PostDAO.authorize_post(post_id)
+            return redirect("/submissions_box")
+        else:
+            PostDAO.delete_post(post_id)
+            return redirect("/submissions_box")
 
 @socketio.on('disconnect')
 def disconnect_user():

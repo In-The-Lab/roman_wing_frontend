@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}
+  {{ profile }}
+{% endblock %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block navbar %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <form action="/submissions/{{ submission.id }}/review" method="POST">
+    <textarea name="body">{{ submission.body }}</textarea>
+    <input type="radio" name="result" value="approve">Approve<br>
+    <input type="radio" name="result" value="deny">Deny<br>
+    <input type="submit" value="Review post">
+  </form>
+{% endblock %}
