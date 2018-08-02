@@ -82,6 +82,7 @@ def articles(article_id):
 @app.route("/events")
 def events_main():
     events = EventDAO.get_all_future_events()
+    print(events)
     return render_template('events/events_main.html', events=events,
                            current_user=get_current_user())
 
@@ -185,6 +186,7 @@ def create_event():
         name = request.form["name"]
         desc = request.form["description"]
         date = request.form["date"]
+        print(date)
         location = request.form["location"]
         EventDAO.create_event(name, desc, date, location)
         return redirect("/events")

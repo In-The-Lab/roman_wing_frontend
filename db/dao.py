@@ -210,7 +210,8 @@ class EventDAO:
         cmd = (
             "INSERT INTO events "
             "(event_name, event_description, date, location) "
-            "VALUES ({}, {}, STR_TO_DATE({}, \'%c/%e/%Y\'), {})"
+            "VALUES (\'{}\', \'{}\', "
+            "STR_TO_DATE(\'{}\', \'%Y-%m-%d\'), \'{}\')"
             .format(name, description, date, location))
         cursor.execute(cmd)
         cnx.commit()
@@ -222,6 +223,7 @@ class EventDAO:
             "SELECT id, event_name, event_description, date, location "
             "FROM events WHERE id={}".format(id_))
         cursor.execute(cmd)
+        events = []
         for (id_, event_name, event_description, date, location) in cursor:
             event = Event(id_, event_name, event_description, date, location)
             events.append(event)

@@ -6,11 +6,14 @@
 {% block head %}
   {{ super() }}
 {% endblock %}
-
+<!--
 {% block navbar %}
   {{ super() }}
-{% endblock %}
+{% endblock %} -->
 
 {% block content %}
   <h1>Events</h1>
+  {% for event in events %}
+    <a href="/events/{{ event.id }}"><h1>{{ event.event_name }}</h1></a>
+  {% endfor %}
 {% endblock %}
