@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    margin-left: 80px;
+}
+
+.openbtn {
+    float: left;
+    width: 30px;
+}
+
+.sidenav {
+    height: 100%;
+    position: fixed;
+    width: 80px;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    padding-top: 30px;
+    background-color: white;
+    border-right: solid #CCC 2px;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-rows: repeat(9, 1fr);
+    grid-gap: 10px;
+}
+
+.sidenav a {
+    text-decoration: none;
+    text-align: center;
+    color: #818181;
+    width: 50%;
+    display: block;
+    margin: 10px auto;
+    transition: 0.3s;
+}
+
+.sidenav .active {
+    grid-row: 1 / span 4;
+}
+
+.sidenav a:hover {
+    opacity: 0.5;
+}
+
+.sidenav_icon {
+    width: 70%;
+    margin-bottom: 5px;
+}
+
+.icon_label {
+    font-size: 12pt;
+}
