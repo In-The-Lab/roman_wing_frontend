@@ -1,14 +1,21 @@
 $(document).ready(function () {
 
-    $(".expand_nav").click(function () {
-        $(".sidenav").css("width", "80px");
-        $(".container").css("margin-left", "80px");
+    $(".article_tab").click(function () {
+        $(".active_tab").removeClass("active_tab");
+        $(this).addClass("active_tab");
+        $(".upcoming_events").slideUp("slow", function () {
+            $(".recent_articles").slideDown("slow");
+            $(".recent_articles").css("display", "grid");
+        });
     });
 
-    $(".close_nav").click(function () {
-        $(".sidenav").css("width", "0px");
-        $(".container").css("margin-left", "0px");
+    $(".event_tab").click(function () {
+        $(".active_tab").removeClass("active_tab");
+        $(this).addClass("active_tab");
+        $(".recent_articles").slideUp("slow", function () {
+            $(".upcoming_events").slideDown("slow");
+            $(".upcoming_events").css("display", "grid");
+        });
     });
-
 
 });
