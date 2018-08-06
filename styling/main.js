@@ -3,7 +3,7 @@ $(document).ready(function () {
     $(".article_tab").click(function () {
         $(".active_tab").removeClass("active_tab");
         $(this).addClass("active_tab");
-        $(".upcoming_events").slideUp("slow", function () {
+        $(".upcoming_events").slideUp("fast", function () {
             $(".recent_articles").slideDown("slow");
             $(".recent_articles").css("display", "grid");
         });
