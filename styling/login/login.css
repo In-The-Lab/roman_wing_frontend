@@ -114,6 +114,19 @@ body {
     margin-top: 0;
 }
 
+.login span {
+    display: inline-block;
+    background: rgba(3, 91, 170, 1);
+    height: 44px;
+    width: 40px;
+}
+
+.login span img {
+    width: 20px;
+    margin-top: 11px;
+    margin-bottom: -3px;
+}
+
 .login input {
     display: block;
     width: 250px;
@@ -121,6 +134,17 @@ body {
     margin: 10px auto;
     padding: 5px;
     border: 2px solid #999;
+    font-size: 18px;
+}
+
+.login .login_input {
+    display: inline-block;
+    width: 212px;
+    height: 30px;
+    margin: 0px auto 10px auto;
+    padding: 5px;
+    border: 2px solid rgba(3, 91, 170, 1);
+    border-left: 0;
     font-size: 18px;
 }
 
