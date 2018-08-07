@@ -4,3 +4,6 @@ def get_current_user():
         return current_user
     except:
         return None
+
+def user(self):
+    return UserDAO.get_user(self.creator_id).full_name()

@@ -7,7 +7,7 @@ from db.models import Post
 from user_routes import user_blueprint
 from event_routes import event_blueprint
 from article_routes import article_blueprint
-from utils import get_current_user
+from utils import get_current_user, user
 import configparser
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
@@ -21,20 +21,15 @@ app.secret_key = config["APP"]["secret"].encode("utf-8")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return UserDAO.get_user(user_id)
-
-
-def user(self):
-    return UserDAO.get_user(self.creator_id).full_name()
-
-
 Post.user = user
 
 socketio = SocketIO(app)
+@socketio.on('disconnect')
+def disconnect_user():
+    logout_user()
 
 @app.route("/")
 def index():
@@ -46,11 +41,4 @@ def index():
     return render_template("index.html", current_user=get_current_user(),
                            articles=articles, events=most_recent_events)
 
-
-@socketio.on('disconnect')
-def disconnect_user():
-    logout_user()
-
-
 app.run(debug=True)
-#TODO: fucking refactor this dirty-ass code
