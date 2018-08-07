@@ -1,32 +1,27 @@
-<nav class="sidenav">
-  <ul class="sidenav_container">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+<script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+<div class="sidenav">
     <a href="/">
-      <li class="sidenav_item" id="main_link">
-        Main
-      </li>
+        <img class="sidenav_icon logo_icon" src="{{ url_for('static', filename='assets/logo.svg') }}" alt="logo icon ">
     </a>
     <a href="/articles">
-      <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/articles.png') }});">
-      </li>
+        <img class="sidenav_icon articles_icon" src="{{ url_for('static', filename='assets/articles.svg') }}" alt="articles icon ">
     </a>
     <a href="/events">
-      <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/events.png') }});">
-      </li>
+        <img class="sidenav_icon calendar_icon" src="{{ url_for('static', filename='assets/calendar.svg') }}" alt="events icon ">
     </a>
     <a href="/submit">
-      <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/submit.png') }});">
-      </li>
+        <img class="sidenav_icon pencil_icon" src="{{ url_for('static', filename='assets/pencil.svg') }}" alt="submit icon ">
     </a>
     {% if current_user %}
-      <a href="/profile/{{ current_user.id }}">
-        <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/profile.png') }});">
-        </li>
-      </a>
+        <a href="/profile/{{ current_user.id }}">
+            <img class="sidenav_icon profile_icon" src="{{ url_for('static', filename='assets/profile.svg') }}" alt="profile icon ">
+        </a>
     {% else %}
-      <a href="/login">
-        <li class="sidenav_item" style="background-image:url({{ url_for('static', filename='assets/submit.png') }});">
-        </li>
-      </a>
+        <a href="/login">
+            <img class="sidenav_icon profile_icon" src="{{ url_for('static', filename='assets/profile.svg') }}" alt="profile icon ">
+        </a>
     {% endif %}
-  </ul>
-</nav>
+    <div class="nav_gap"></div>
+</div>

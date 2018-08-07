@@ -1,1 +1,215 @@
+@font-face {
+    font-family: DIN;
+    src: url("fonts/D-DIN.otf")
+}
 
+@font-face {
+    font-family: DIN-Bold;
+    src: url("fonts/D-DIN-Bold.otf")
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: DIN;
+    color: darkblue;
+}
+
+.container {
+    margin-left: 100px;
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
+
+.about {
+    top: 0;
+    height: 100vh;
+    position: sticky;
+    padding-left: 40px;
+}
+
+.main_logo {
+    font-size: 90px;
+    margin-bottom: 20px;
+}
+
+.main_slogan {
+    display: inline-block;
+    font-family: DIN-Bold;
+    font-size: 35px;
+    border-left: solid 5px red;
+    width: 80%;
+    margin-top: 0px;
+    padding-left: 10px;
+}
+
+.description {
+    color: #868686;
+    font-size: 18px;
+    line-height: 30px;
+    width: 75%;
+    margin-bottom: 40px;
+}
+
+.submit_link {
+    border: 3px darkblue solid;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 24px;
+    color: darkblue;
+    text-decoration: none;
+}
+
+.banner {
+    height: 100%;
+    background: -webkit-linear-gradient(0deg, rgba(3, 91, 170, 1) 0%, rgba(9, 73, 149, 1) 13.27%, rgba(17, 50, 121, 1) 34.6%, rgba(23, 33, 102, 1) 56.15%, rgba(26, 23, 90, 1) 77.87%, rgba(27, 20, 86, 1) 100%);
+    background: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0, rgba(3, 91, 170, 1)), color-stop(0.1327, rgba(9, 73, 149, 1)), color-stop(0.346, rgba(17, 50, 121, 1)), color-stop(0.5615, rgba(23, 33, 102, 1)), color-stop(0.7787, rgba(26, 23, 90, 1)), color-stop(1, rgba(27, 20, 86, 1)));
+    background: -o-linear-gradient(0deg, rgba(3, 91, 170, 1) 0%, rgba(9, 73, 149, 1) 13.27%, rgba(17, 50, 121, 1) 34.6%, rgba(23, 33, 102, 1) 56.15%, rgba(26, 23, 90, 1) 77.87%, rgba(27, 20, 86, 1) 100%);
+    background: -ms-linear-gradient(0deg, rgba(3, 91, 170, 1) 0%, rgba(9, 73, 149, 1) 13.27%, rgba(17, 50, 121, 1) 34.6%, rgba(23, 33, 102, 1) 56.15%, rgba(26, 23, 90, 1) 77.87%, rgba(27, 20, 86, 1) 100%);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#035BAA', endColorstr='#1B1456' ,GradientType=0)";
+    background: linear-gradient(90deg, rgba(3, 91, 170, 1) 0%, rgba(9, 73, 149, 1) 13.27%, rgba(17, 50, 121, 1) 34.6%, rgba(23, 33, 102, 1) 56.15%, rgba(26, 23, 90, 1) 77.87%, rgba(27, 20, 86, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#035BAA', endColorstr='#1B1456', GradientType=1);
+    z-index: 0;
+    padding-left: 50px;
+}
+
+.wings {
+    top: 0;
+    right: 0;
+    opacity: 0.5;
+    width: 40%;
+    margin-top: 5%;
+    height: auto;
+    position: fixed;
+    z-index: -1;
+}
+
+.tab_bar {
+    height: 60px;
+    margin: 10px 0 60px 0;
+}
+
+.tab_bar a {
+    color: white;
+    font-size: 30px;
+    margin: 20px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.tab_bar a:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    margin-bottom: 5px;
+    background: white;
+    transition: width .3s;
+}
+
+.tab_bar a:hover::before {
+    width: 100%; //transition: width .3s;
+}
+
+.tab_bar .active_tab:before {
+    width: 100%;
+}
+
+.recent_articles {
+    margin: 0 50px 0 30px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 20px;
+}
+
+.article {
+    background-color: white;
+    border-radius: 20px;
+    height: auto;
+}
+
+.article img {
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+}
+
+.article p {
+    display: inline-block;
+}
+
+.rating {
+    display: inline-block;
+    float: right;
+}
+
+.circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: solid red 2px;
+}
+
+.closed {
+    background-color: red;
+}
+
+.upcoming_events {
+    display: grid;
+    display: none;
+}
+
+.sidenav {
+    height: 100%;
+    position: fixed;
+    width: 100px;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    border-right: solid black 2px;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-rows: 100px repeat(8, 1fr);
+}
+
+.sidenav a {
+    text-decoration: none;
+    text-align: center;
+    color: #818181;
+    width: 50%;
+    margin: 10px auto;
+    transition: 0.3s;
+}
+
+.sidenav .active_icon {
+    grid-row: 1;
+}
+
+.sidenav .nav_gap {
+    grid-row: 2 / span 4;
+}
+
+.sidenav_icon {
+    width: 70%;
+    transition: 0.3s;
+}
+
+.sidenav_icon:hover {
+    opacity: 0.5;
+}
+
+.logo_icon {
+    width: 75%;
+    filter: grayscale(100%);
+    margin-top: 30px;
+    transition: 0.3s;
+}
+
+.logo_icon:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+.article a {
+  text-decoration: none;
+}

@@ -3,54 +3,49 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+    <script type="text/javascript " src="{{ url_for('static', filename='js/main.js') }}"></script>
     <title>Roman Wing</title>
 </head>
 
 <body>
+    {% block navbar %}
+        {% include "includes/navbar.html" %}
+    {% endblock %}
 
-    <div class="topnav">
-        <button class="expand_nav"><img class="topnav_icon" src="{{ url_for('static', filename='assets/stack.svg') }}"></button>
-        <h1 class="main_logo">ROMAN WING</h1>
-        <input class="search_bar" type="text" placeholder="Search..." name="search">
-        <button class="search_button" type="submit"><img class="topnav_icon" src="{{ url_for('static', filename='assets/search.svg') }}"></button>
-
-    </div>
-
-    <div class="sidenav">
-        <a class="close_nav" href="javascript:void(0)">&times;</a>
-        <a class="active " href="#">
-            <img class="sidenav_icon logo_icon " src="{{ url_for('static', filename='assets/logo.svg') }}" alt="logo icon">
-        </a>
-        <a href="# ">
-            <img class="sidenav_icon " src="{{ url_for('static', filename='assets/articles.svg') }}" alt="articles icon">
-        </a>
-        <a href="# ">
-            <img class="sidenav_icon " src="{{ url_for('static', filename='assets/calendar.svg') }}" alt="events icon">
-        </a>
-        <a href="# ">
-            <img class="sidenav_icon " src="{{ url_for('static', filename='assets/pencil.svg') }}" alt="submit icon">
-        </a>
-        <a href="# ">
-            <img class="sidenav_icon " src="{{ url_for('static', filename='assets/profile.svg') }}" alt="profile icon">
-        </a>
-        <div class="nav_gap"></div>
-    </div>
-
-    <div class="container">
-        <div class="about">
-            <h1>About</h1>
+    <div class="container ">
+        <div class="about ">
+            <h1 class="main_logo">ROMAN WING</h1>
+            <h3 class="main_slogan">The Latin School of Chicago’s political hub</h3>
+            <p class="description">Roman Wing is a website where students can go to read, discuss, and engage in politics. View articles written by other students, or find political events around the city. Whether you’re right-wing or left-wing, all opinions and ideologies are accepted on Roman Wing.</p>
+            <a class="submit_link" href="/submit">Submit an Article ➝</a>
         </div>
-        <div class="banner">
-            <div class="recent_articles">
+        <div class="banner ">
+            <div class="tab_bar">
+                <a class="article_tab active_tab">Recent Articles</a>
+                <a class="event_tab">Upcoming Events</a>
             </div>
-            <div class="upcoming_events">
+            {% for article in articles %}
+                <div class="recent_articles">
+                  <a class="article">
+                      <img src="{{ article.thumbnail_url }}">
+                      <!-- BUG: start up the server and check this out. -->
+                      <a href="/articles/{{ article.id }}"><h2>{{ article.title }}</h2></a>
+                      <p>{{ article.user() }}</p>
+                      <div class="rating">
+                          <div class="circle closed"></div>
+                          <div class="circle closed"></div>
+                          <div class="circle"></div>
+                      </div>
+                  </a>
+                </div>
+            {% endfor %}
+            <div class="upcoming_events ">
             </div>
+            <img class="wings" src="{{ url_for('static', filename='assets/wings.png') }}">
         </div>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
-    <script type="text/javascript " src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 
 </html>
