@@ -1,3 +1,5 @@
+from db.dao import UserDAO
+
 def get_current_user():
     try:
         id = current_user.id
