@@ -2,7 +2,7 @@ var path2class = {
   "/articles": ".articles_icon",
   "/events": ".events_icon",
   "/submit": ".submit_icon",
-  "/profile": "profile_icon"
+  "/profile": ".profile_icon"
 }
 
 var elemFromPath = function() {
@@ -12,13 +12,13 @@ var elemFromPath = function() {
     }
     for(var key in path2class) {
         if(pathName.indexOf(key) !== -1) {
-            return $(key)
+            return $(path2class[key])
         }
     }
 }
 
 $(document).ready(function() {
-    var element = elemFromPath();
+    var element = elemFromPath().parent();
     console.log(element);
     $(".active_icon").removeClass("active_icon");
     element.addClass("active_icon");

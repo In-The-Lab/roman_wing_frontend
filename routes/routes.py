@@ -3,6 +3,7 @@ from flask_login import LoginManager, logout_user, current_user
 from flask_login import login_user, login_required
 from flask_socketio import SocketIO, emit
 from db.dao import UserDAO, PostDAO, EventDAO, AuthDAO
+from db.models import Post
 import configparser
 import bcrypt
 
@@ -27,9 +28,17 @@ def get_current_user():
     except:
         return None
 
+def user(self):
+    return UserDAO.get_user(self.creator_id).full_name()
+Post.user = user
+
 @app.route("/")
 def index():
-    return render_template("index.html", current_user=get_current_user())
+    articles = PostDAO.get_approved_posts()
+    articles.sort(key=lambda p: p.date_created, reverse=True)
+    if len(articles) > 10:
+        articles = articles[:10]
+    return render_template("index.html", current_user=get_current_user(), articles=articles)
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():

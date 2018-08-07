@@ -23,13 +23,17 @@ class User:
     def is_anonymous(self):
         return False
 
+    def full_name(self):
+        return "{} {}".format(
+            self.first_name.lower().capitalize(),
+            self.last_name.lower().capitalize())
+
     def __str__(self):
         return (
-            "{} {}:\n"
+            "{}:\n"
             "\temail: {}\n"
             "\tcreated on: {}"
-            .format(self.first_name,
-                    self.last_name,
+            .format(self.full_name(),
                     self.email,
                     self.date_created)
         )
