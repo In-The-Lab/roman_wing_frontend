@@ -14,8 +14,14 @@
     <a href="/submit">
         <img class="sidenav_icon pencil_icon" src="{{ url_for('static', filename='assets/pencil.svg') }}" alt="submit icon ">
     </a>
-    <a href="/profile">
-        <img class="sidenav_icon profile_icon" src="{{ url_for('static', filename='assets/profile.svg') }}" alt="profile icon ">
-    </a>
+    {% if current_user %}
+        <a href="/profile/{{ current_user.id }}">
+            <img class="sidenav_icon profile_icon" src="{{ url_for('static', filename='assets/profile.svg') }}" alt="profile icon ">
+        </a>
+    {% else %}
+        <a href="/login">
+            <img class="sidenav_icon profile_icon" src="{{ url_for('static', filename='assets/profile.svg') }}" alt="profile icon ">
+        </a>
+    {% endif %}
     <div class="nav_gap"></div>
 </div>

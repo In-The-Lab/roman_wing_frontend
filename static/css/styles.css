@@ -210,3 +210,6 @@ body {
     filter: grayscale(0%);
     opacity: 1;
 }
+.article a {
+  text-decoration: none;
+}
