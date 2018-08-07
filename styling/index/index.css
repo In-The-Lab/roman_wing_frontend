@@ -1,11 +1,11 @@
 @font-face {
     font-family: DIN;
-    src: url("fonts/D-DIN.otf")
+    src: url("../fonts/D-DIN.otf")
 }
 
 @font-face {
     font-family: DIN-Bold;
-    src: url("fonts/D-DIN-Bold.otf")
+    src: url("../fonts/D-DIN-Bold.otf")
 }
 
 body {
@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-    margin-left: 100px;
+    margin-left: 102px;
     display: grid;
     grid-template-columns: 25% 75%;
 }
@@ -124,13 +124,14 @@ body {
 
 .article {
     background-color: white;
+    border: solid 10px white;
     border-radius: 20px;
     height: auto;
 }
 
 .article img {
     width: 100%;
-    border-radius: 20px 20px 0 0;
+    border-radius: 10px 10px 0 0;
 }
 
 .article p {
@@ -184,6 +185,7 @@ body {
 
 .sidenav .active_icon {
     grid-row: 1;
+    margin-top: 30px;
 }
 
 .sidenav .nav_gap {
@@ -202,7 +204,6 @@ body {
 .logo_icon {
     width: 75%;
     filter: grayscale(100%);
-    margin-top: 30px;
     transition: 0.3s;
 }
 
