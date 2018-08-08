@@ -23,10 +23,10 @@
               <h1>User Login</h1>
               <form action="/login" method="POST">
                   <div class="input_container">
-                      <img class="login_icon" src="{{ url_for('static', filename='assets/email.svg') }}"><input class="login_input" type="text" placeholder="Email" name="email">
+                      <img class="login_icon" src="{{ url_for('static', filename='assets/email.svg') }}"><input class="login_input" type="text" placeholder="Email" name="email" required=true>
                   </div>
                   <div class="input_container">
-                      <img class="login_icon" src="{{ url_for('static', filename='assets/lock.svg') }}"><input class="login_input" type="password" placeholder="Password" name="password">
+                      <img class="login_icon" src="{{ url_for('static', filename='assets/lock.svg') }}"><input class="login_input" type="password" placeholder="Password" name="password" required=true>
                   </div>
                   <button type="submit" class="login_button">Login</button>
                   <a class="account_link" href="/signup">Create an account ➝</a>
