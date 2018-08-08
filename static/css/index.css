@@ -8,6 +8,10 @@
     src: url("fonts/D-DIN-Bold.otf")
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -124,13 +128,14 @@ body {
 
 .article {
     background-color: white;
+    border: solid 10px white;
     border-radius: 20px;
     height: auto;
 }
 
 .article img {
     width: 100%;
-    border-radius: 20px 20px 0 0;
+    border-radius: 10px 10px 0 0;
 }
 
 .article p {
@@ -157,46 +162,6 @@ body {
 .upcoming_events {
     display: grid;
     display: none;
-}
-
-.sidenav {
-    height: 100%;
-    position: fixed;
-    width: 100px;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: white;
-    border-right: solid black 2px;
-    overflow-x: hidden;
-    display: grid;
-    grid-template-rows: 100px repeat(8, 1fr);
-}
-
-.sidenav a {
-    text-decoration: none;
-    text-align: center;
-    color: #818181;
-    width: 50%;
-    margin: 10px auto;
-    transition: 0.3s;
-}
-
-.sidenav .active_icon {
-    grid-row: 1;
-}
-
-.sidenav .nav_gap {
-    grid-row: 2 / span 4;
-}
-
-.sidenav_icon {
-    width: 70%;
-    transition: 0.3s;
-}
-
-.sidenav_icon:hover {
-    opacity: 0.5;
 }
 
 .logo_icon {

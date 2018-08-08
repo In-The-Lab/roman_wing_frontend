@@ -5,6 +5,7 @@
 
 {% block head %}
   {{ super() }}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %}
 
 {% block navbar %}
@@ -12,12 +13,26 @@
 {% endblock %}
 
 {% block content %}
-  <form action="/signup" method="POST">
-    <input type="text" name="first_name" placeholder="First Name">
-    <input type="text" name="last_name" placeholder="Last Name">
-    <input type="text" name="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
-    <input type="password" name="confirm_password" placeholder="Confirm Password">
-    <input type="submit" value="Sign up!">
-  </form>
+    <div class="background">
+        <div class="container">
+            <img class="wings" src="{{ url_for('static', filename='assets/wings.png') }}" alt="wings">
+            <div class="login">
+                <h1>Sign Up</h1>
+                <form action="/signup" method="POST">
+                    <div class="names">
+                        <input type="text" placeholder="First Name" name="first_name">
+                        <input type="text" placeholder="Last Name" name="last_name">
+                    </div>
+                    <input type="email" placeholder="Email Address" name="email">
+                    <input type="password" placeholder="Password" name="password">
+                    <input type="password" placeholder="Confirm Password" name="confirm_password">
+                    <button type="submit" class="login_button">Get Started</button>
+                    <a class="account_link" href="/login">Already have an account?</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+    <script type="text/javascript " src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}

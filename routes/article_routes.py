@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template
 from db.dao import PostDAO
-from utils import get_current_user
+from utils import get_current_user, collect_from_db_for_index
 
 article_blueprint = Blueprint("article", __name__)
 
@@ -19,11 +19,18 @@ def articles(article_id):
 @article_blueprint.route("/submit", methods=["GET", "POST"])
 def submit():
     if request.method == "GET":
+        user = get_current_user()
+        if user is None:
+            articles, events = collect_from_db_for_index()
+            return render_template("index.html", current_user=None,
+                                   articles=articles, events=events)
         return render_template('submit.html', current_user=get_current_user())
     elif request.method == "POST":
         user = get_current_user()
-        if current_user is None:
-            return render_template("index.html", current_user=None)
+        if user is None:
+            articles, events = collect_from_db_for_index()
+            return render_template("index.html", current_user=None,
+                                   articles=articles, events=events)
         title = request.form["title"]
         description = request.form["description"]
         thumbnail_url = request.form["thumbnail_url"]
@@ -37,8 +44,11 @@ def check_submissions():
     if user is None:
         return redirect("/login")
     if not user.is_admin:
+        articles, events = collect_from_db_for_index()
         return render_template("index.html",
                                current_user=user,
+                               articles=articles,
+                               events=events,
                                error="You must be an admin to review submissions.")
     submissions = PostDAO.get_unapproved_posts()
     return render_template("submissions_box.html", submissions=submissions)
@@ -49,8 +59,11 @@ def review_submission(post_id):
     if user is None:
         return redirect("/login")
     if not user.is_admin:
+        articles, events = collect_from_db_for_index()
         return render_template("index.html",
                                current_user=user,
+                               articles=articles,
+                               events=events,
                                error="You must be an admin to review submissions.")
     post_id = int(post_id)
     submission = PostDAO.get_post(post_id)
@@ -63,8 +76,11 @@ def approve_submission(post_id):
         if user is None:
             return redirect("/login")
         if not user.is_admin:
+            articles, events = collect_from_db_for_index()
             return render_template("index.html",
                                    current_user=user,
+                                   articles=articles,
+                                   events=events,
                                    error="You must be an admin to review submissions.")
         post_id = int(post_id)
         updated_text = request.form["body"].replace("\'", "\\'").replace('\"', '\\"')

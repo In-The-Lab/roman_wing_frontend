@@ -7,7 +7,7 @@ from db.models import Post
 from user_routes import user_blueprint
 from event_routes import event_blueprint
 from article_routes import article_blueprint
-from utils import get_current_user, user
+from utils import get_current_user, user, collect_from_db_for_index
 import configparser
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
@@ -33,11 +33,7 @@ def disconnect_user():
 
 @app.route("/")
 def index():
-    articles = PostDAO.get_approved_posts()
-    articles.sort(key=lambda p: p.date_created, reverse=True)
-    most_recent_events = EventDAO.get_all_future_events()
-    if len(articles) > 10:
-        articles = articles[:10]
+    articles, most_recent_events = collect_from_db_for_index()
     return render_template("index.html", current_user=get_current_user(),
                            articles=articles, events=most_recent_events)
 

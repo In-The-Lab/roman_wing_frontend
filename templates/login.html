@@ -5,20 +5,36 @@
 
 {% block head %}
   {{ super() }}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %}
 
 {% block navbar %}
+    {% include "includes/navbar.html" %}
 {% endblock %}
 
 {% block content %}
-  <h1>Log-In</h1>
   {% if error %}
     {{ error }}
   {% endif %}
-  <form action="/login" method="POST">
-    <input type="text" name="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit">
-  </form>
-  <h4>Don't have an account yet? <a href="/signup">Sign up here</a>.</h4>
+  <div class="background">
+      <div class="container">
+          <img class="wings" src="{{ url_for('static', filename='assets/wings.png') }}" alt="wings">
+          <div class="login">
+              <h1>User Login</h1>
+              <form action="/login" method="POST">
+                  <div class="input_container">
+                      <img class="login_icon" src="{{ url_for('static', filename='assets/email.svg') }}"><input class="login_input" type="text" placeholder="Email" name="email">
+                  </div>
+                  <div class="input_container">
+                      <img class="login_icon" src="{{ url_for('static', filename='assets/lock.svg') }}"><input class="login_input" type="password" placeholder="Password" name="password">
+                  </div>
+                  <button type="submit" class="login_button">Login</button>
+                  <a class="account_link" href="/signup">Create an account ➝</a>
+              </form>
+          </div>
+      </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+  <script type="text/javascript " src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}

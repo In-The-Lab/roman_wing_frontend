@@ -2,7 +2,9 @@ var path2class = {
   "/articles": ".articles_icon",
   "/events": ".events_icon",
   "/submit": ".submit_icon",
-  "/profile": ".profile_icon"
+  "/profile": ".profile_icon",
+  "/login": ".profile_icon",
+  "/signup": ".profile_icon"
 }
 
 var elemFromPath = function() {
@@ -15,6 +17,7 @@ var elemFromPath = function() {
             return $(path2class[key])
         }
     }
+    return $(".logo_icon");
 }
 
 $(document).ready(function() {
