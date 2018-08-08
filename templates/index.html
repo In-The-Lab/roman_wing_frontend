@@ -33,7 +33,8 @@
             {% for article in articles %}
                 <div class="recent_articles">
                   <a class="article" href="/articles/{{ article.id }}">
-                      <img src="{{ article.thumbnail_url }}">
+                      <div class="art-img" style="background-image: url({{ article.thumbnail_url }});">
+                      </div>
                       <h2>{{ article.title }}</h2>
                       <p>{{ article.user() }}</p>
                       <div class="rating">

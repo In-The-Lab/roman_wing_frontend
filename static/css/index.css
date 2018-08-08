@@ -134,8 +134,12 @@ body {
     height: auto;
 }
 
-.article img {
-    width: 100%;
+.art-img {
+    width: 50%;
+    margin: auto;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
     border-radius: 10px 10px 0 0;
 }
 
