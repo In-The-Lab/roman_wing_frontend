@@ -1,11 +1,11 @@
 @font-face {
     font-family: DIN;
-    src: url("../fonts/D-DIN.otf")
+    src: url("fonts/D-DIN.otf")
 }
 
 @font-face {
     font-family: DIN-Bold;
-    src: url("../fonts/D-DIN-Bold.otf")
+    src: url("fonts/D-DIN-Bold.otf")
 }
 
 body {
