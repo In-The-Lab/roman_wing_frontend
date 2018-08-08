@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    $(".wings").animate({"margin-right": "-=800", "opacity": "0.5"}, {duration: 1000});
+
     $(".article_tab").click(function() {
         $(".active_tab").removeClass("active_tab");
         $(this).addClass("active_tab");
