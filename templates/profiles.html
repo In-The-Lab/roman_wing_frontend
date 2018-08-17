@@ -6,7 +6,7 @@
 
 {% block head %}
   {{ super() }}
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}">
 {% endblock %}
 
 {% block navbar %}
@@ -19,30 +19,38 @@
     {% endif %}
     <div class="background">
         <div class="container">
-            <img class="wings" src="{{ url_for('static', filename='assets/wings.png') }}" alt="wings" style="opacity: 1;">
-            <div class="profile">
+            <div class="name">
                 <h1>{{ profile.full_name() }}</h1>
-                <div class="my_submissions">
-                    {% for submission in profile.submissions() %}
-                    <a href="/articles/{{ submission.id }}">
-                        <div class="submission">{{ submission.title }}</div>
-                    </a>
-                    {% endfor %}
+            </div>
+            <div class="cont2">
+                <div class="inner" id="left">
+                    <div class="my_submissions">
+                        {% for submission in profile.submissions() %}
+                        <a href="/articles/{{ submission.id }}">
+                            <div class="submission">{{ submission.title }}</div>
+                        </a>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="create_submission">
-                </div>
-                {% if profile.is_admin %}
-                    <a href="/submissions_box">
-                        <div class="pending_submissions">
-                            <p>Pending Submissions</p>
+                <div class="inner" id="right">
+                    <a href="/submit">
+                        <div class="create_submission">
+                          <p>Create an Article</p>
                         </div>
                     </a>
-                    <a href="/create_event">
-                        <div class="create_event">
-                            <p>Create an Event</p>
-                        </div>
-                    </a>
-                {% endif %}
+                    {% if profile.is_admin %}
+                        <a href="/submissions_box">
+                            <div class="pending_submissions">
+                                <p>Pending Submissions</p>
+                            </div>
+                        </a>
+                        <a href="/create_event">
+                            <div class="create_event">
+                                <p>Create an Event</p>
+                            </div>
+                        </a>
+                    {% endif %}
+                  </div>
             </div>
         </div>
     </div>
