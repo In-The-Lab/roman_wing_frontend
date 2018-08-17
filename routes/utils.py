@@ -11,6 +11,9 @@ def get_current_user():
 def user(self):
     return UserDAO.get_user(self.creator_id).full_name()
 
+def submissions(self):
+    return PostDAO.get_approved_posts_from_user(self.id)
+
 def collect_from_db_for_index():
     articles = PostDAO.get_approved_posts()
     articles.sort(key=lambda p: p.date_created, reverse=True)

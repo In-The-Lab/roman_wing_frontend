@@ -186,6 +186,22 @@ class PostDAO:
             posts.append(post)
         return posts
 
+    def get_approved_posts_from_user(user_id):
+        cnx, cursor = get_db_connection(*get_db_config())
+        cmd = (
+            "SELECT id, creator_id, title, description, body, date_created, "
+            "thumbnail_url, is_authorized "
+            "FROM posts WHERE is_authorized=TRUE AND creator_id={}"
+            .format(user_id))
+        cursor.execute(cmd)
+        posts = []
+        for (id_, creator_id, title, description,
+             body, date_created, thumbnail_url, is_authorized) in cursor:
+            post = Post(id_, creator_id, title, description,
+                        body, date_created, thumbnail_url, is_authorized)
+            posts.append(post)
+        return posts
+
     @staticmethod
     def delete_post(id_):
         cnx, cursor = get_db_connection(*get_db_config())

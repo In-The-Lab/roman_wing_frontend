@@ -3,11 +3,12 @@ from flask_login import LoginManager, logout_user, current_user
 from flask_login import login_user, login_required
 from flask_socketio import SocketIO, emit
 from db.dao import UserDAO, PostDAO, EventDAO
-from db.models import Post
+from db.models import Post, User
 from user_routes import user_blueprint
 from event_routes import event_blueprint
 from article_routes import article_blueprint
 from utils import get_current_user, user, collect_from_db_for_index
+from utils import submissions
 import configparser
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
@@ -25,6 +26,7 @@ login_manager.init_app(app)
 def load_user(user_id):
     return UserDAO.get_user(user_id)
 Post.user = user
+User.submissions = submissions
 
 socketio = SocketIO(app)
 @socketio.on('disconnect')

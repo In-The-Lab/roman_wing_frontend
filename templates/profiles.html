@@ -1,22 +1,49 @@
 {% extends "layout.html" %}
+
 {% block title %}
-  {{ profile }}
+  Your Profile
 {% endblock %}
 
 {% block head %}
   {{ super() }}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %}
 
 {% block navbar %}
-  {{ super() }}
+    {% include "includes/navbar.html" %}
 {% endblock %}
 
 {% block content %}
-  <h1>{{ profile.first_name + " " + profile.last_name }}</h1>
-
-  {% if profile.is_admin == true %}
-    <a href="/submissions_box">Check submissions</a>
-    <a href="/create_event">Create an event</a>
-  {% endif %}
-
+    {% if error %}
+        {{ error }}
+    {% endif %}
+    <div class="background">
+        <div class="container">
+            <img class="wings" src="{{ url_for('static', filename='assets/wings.png') }}" alt="wings" style="opacity: 1;">
+            <div class="profile">
+                <h1>{{ profile.full_name() }}</h1>
+                <div class="my_submissions">
+                    {% for submission in profile.submissions() %}
+                    <a href="/articles/{{ submission.id }}">
+                        <div class="submission">{{ submission.title }}</div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="create_submission">
+                </div>
+                {% if profile.is_admin %}
+                    <a href="/submissions_box">
+                        <div class="pending_submissions">
+                            <p>Pending Submissions</p>
+                        </div>
+                    </a>
+                    <a href="/create_event">
+                        <div class="create_event">
+                            <p>Create an Event</p>
+                        </div>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
